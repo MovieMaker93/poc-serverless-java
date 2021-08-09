@@ -24,33 +24,37 @@ public class GetTaxesHandler implements RequestHandler<Map<String,Object> ,ApiGa
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String,Object> input, Context context) {
-        LOG.info("received: {}", input.get("body"));
+        LOG.info("received: {}", input);
+        Product product = null;
+        double totalPrice = 0.0;
+        double taxSales = 0.0;
+        List<ProductWithTaxes> listTaxesResponse = new ArrayList<>();
         try {
             JsonNode body = new ObjectMapper().readTree((String) input.get("body"));
-            List products = body.findValuesAsText("products");
-            LOG.info("json object body", products);
+            if(body.isArray()){
+                for (final JsonNode objNode : body){
+                    product = new Product(objNode.get("quantity").asInt(),objNode.get("price").asDouble(),objNode.get("productName").asText(),
+                            objNode.get("imported").asBoolean(),objNode.get("type").asText());
+                    double totalPriceProduct = product.getPrice() * product.getQuantity();
+                    if (!Utils.checkProductType(product.getType())){
+                        double tax = Utils.calculateStandardTax(product.getPrice());
+                        totalPriceProduct = totalPriceProduct + tax;
+                        taxSales = taxSales + tax;
+                    }
+                    if(product.isImported()){
+                        double importedTax = Utils.calculateImportedTax(product.getPrice());
+                        totalPriceProduct = totalPriceProduct + importedTax;
+                        taxSales = taxSales + importedTax;
+                    }
+                    listTaxesResponse.add(new ProductWithTaxes(product.getQuantity(),product.getProductName(),Utils.round(totalPriceProduct,2)));
+                    totalPrice = totalPrice + totalPriceProduct;
+                }
+            }
+            LOG.info("json object body", product);
         } catch (IOException e) {
             e.printStackTrace();
         }
-      /*  try {
-            products = objectMapper.readValue((String)input, Product.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        List<ProductWithTaxes> listTaxesResponse = new ArrayList<>();
-        listTaxesResponse.add(new ProductWithTaxes(2,"food-product",0.0));
-        Response response = new Response(listTaxesResponse);
-        /*for(Product product : products) {
-            Double totalPrice = null;
-            if (Utils.checkProductType(product.getType())){
-                totalPrice = Utils.calculateImportedTax(product.getPrice(), product.isImported());
-            }
-            else{
-                totalPrice = Utils.calculateImportedTax(Utils.calculateStandardTax(product.getPrice()),product.isImported());
-            }
-            listTaxesResponse.add(new ProductWithTaxes(product.getQuantity(),product.getProductName(),totalPrice));
-        }*/
-
+        Response response = new Response(listTaxesResponse,Utils.round(totalPrice,2),Utils.round(taxSales,2));
 		return ApiGatewayResponse.builder()
 				.setStatusCode(200)
 				.setObjectBody(response)

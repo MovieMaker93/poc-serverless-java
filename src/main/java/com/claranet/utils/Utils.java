@@ -1,5 +1,8 @@
 package com.claranet.utils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Utils {
 
     public static boolean checkProductType(String productType) {
@@ -12,13 +15,19 @@ public class Utils {
         return false;
     }
 
-    public static double calculateImportedTax (double price, boolean isImported){
-        if(isImported)
-            return price + (price * 0.05);
-        return price;
+    public static double calculateImportedTax (double price){
+            return price * 0.05;
     }
 
     public static double calculateStandardTax (double price){
-        return price + (price * 0.10);
+        return price * 0.10;
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }
