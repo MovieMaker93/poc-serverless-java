@@ -37,7 +37,7 @@ public class GetTaxesHandler implements RequestHandler<Map<String,Object> ,ApiGa
                     for (final JsonNode objNode : body) {
                         Product product = new Product(objNode.get("quantity").asInt(), objNode.get("price").asDouble(), objNode.get("productName").asText(),
                                 objNode.get("imported").asBoolean(), objNode.get("type").asText());
-                        LOG.info("Current product {}", product);
+                        LOG.info("Current product name {}", product.getProductName());
                         double priceProduct = product.getPrice();
                         int quantity = product.getQuantity();
                         // Standard total price product is price product multiplied for the quantity
@@ -61,7 +61,8 @@ public class GetTaxesHandler implements RequestHandler<Map<String,Object> ,ApiGa
                 }
             }
             Response response = new Response(listTaxesResponse, Utils.round(totalPrice, 2), Utils.round(taxSales, 2));
-            LOG.info("Response body {}", response);
+            LOG.info("Total Price {}", response.getTotalPrice());
+            LOG.info("Total Taxes {}", response.getTaxSales());
             return buildResponse(200, response,
                     Collections.singletonMap("X-Powered-By", "AWS Lambda & serverless"));
         }catch (IOException e) {

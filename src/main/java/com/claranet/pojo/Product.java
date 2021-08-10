@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Product implements Serializable, Cloneable{
 
-    private int quantity;
-    private double price;
-    private String productName;
-    private boolean imported;
+    private final int quantity;
+    private final double price;
+    private final String productName;
+    private final boolean imported;
     private final String type;
 
     public Product(int quantity, double price, String productName, boolean imported, String type) {
