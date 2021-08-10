@@ -1,0 +1,23 @@
+[
+  {
+    "quantity": 2,
+    "price": 12.49,
+    "productName": "book",
+    "imported": false,
+    "type": "Book"
+  },
+  {
+    "quantity": 1,
+    "price": 14.99,
+    "productName": "music CD",
+    "imported": false,
+    "type": "Cd"
+  },
+  {
+    "quantity": 1,
+    "price": 0.85,
+    "productName": "chocolate bar",
+    "imported": false,
+    "type": "Food"
+  }
+]

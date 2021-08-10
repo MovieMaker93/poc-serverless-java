@@ -1,6 +1,8 @@
 package com.claranet.pojo;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable, Cloneable{
 
     private int quantity;
     private double price;
