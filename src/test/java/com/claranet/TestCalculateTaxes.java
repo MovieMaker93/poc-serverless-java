@@ -23,6 +23,7 @@ public class TestCalculateTaxes {
     void testRequest1() throws IOException {
         ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream("/mock/request/input-request-1.json"));
         assertEquals(HTTP_OK, result.getStatusCode());
+        assertEquals(HTTP_OK, result.getStatusCode());
         assertEquals(convertInputStreamToString(getResourceAsStream("/mock/response/response-1.json"),StandardCharsets.UTF_8.name()),result.getBody());
     }
 
