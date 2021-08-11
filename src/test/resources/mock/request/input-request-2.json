@@ -1,0 +1,12 @@
+[
+  {
+    "quantity": 1,
+    "price": 10.00,
+    "productName": "imported box of chocolates"
+  },
+  {
+    "quantity": 1,
+    "price": 47.50,
+    "productName": "imported bottle of perfume"
+  }
+]
