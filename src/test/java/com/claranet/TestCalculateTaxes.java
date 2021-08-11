@@ -5,6 +5,9 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.claranet.controller.ApiGatewayResponse;
 import com.claranet.controller.CalculateTaxesHandler;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -14,30 +17,28 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 
-public class TestCalculateTaxes {
+class TestCalculateTaxes {
 
     private static final String BODY = "body";
-    private static final int HTTP_OK = 200;
+    private static final int HTTP_200 = 200;
+    private static final int HTTP_500 = 500;
 
-    @Test
-    void testRequest1() throws IOException {
-        ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream("/mock/request/input-request-1.json"));
-        assertEquals(HTTP_OK, result.getStatusCode());
-        assertEquals(convertInputStreamToString(getResourceAsStream("/mock/response/response-1.json"),StandardCharsets.UTF_8.name()),result.getBody());
+    @ParameterizedTest
+    @CsvSource({
+            "/mock/request/input-request-1.json, /mock/response/response-1.json",
+            "/mock/request/input-request-2.json, /mock/response/response-2.json",
+            "/mock/request/input-request-3.json, /mock/response/response-3.json"
+    })
+    void testRequests(String request, String response) throws IOException {
+        ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream(request));
+        assertEquals(HTTP_200, result.getStatusCode());
+        assertEquals(convertInputStreamToString(getResourceAsStream(response),StandardCharsets.UTF_8.name()),result.getBody());
     }
 
     @Test
-    void testRequest2() throws IOException {
-        ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream("/mock/request/input-request-2.json"));
-        assertEquals(HTTP_OK, result.getStatusCode());
-        assertEquals(convertInputStreamToString(getResourceAsStream("/mock/response/response-2.json"),StandardCharsets.UTF_8.name()),result.getBody());
-    }
-
-    @Test
-    void testRequest3() throws IOException {
-        ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream("/mock/request/input-request-3.json"));
-        assertEquals(HTTP_OK, result.getStatusCode());
-        assertEquals(convertInputStreamToString(getResourceAsStream("/mock/response/response-3.json"),StandardCharsets.UTF_8.name()),result.getBody());
+    void testRequestFail() throws IOException {
+        ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream("/mock/request/input-request-fail.json"));
+        assertEquals(HTTP_500, result.getStatusCode());
     }
 
     private ApiGatewayResponse getApiGatewayResponse(InputStream request) throws IOException {

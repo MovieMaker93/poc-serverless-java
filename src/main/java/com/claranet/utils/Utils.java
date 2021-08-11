@@ -13,6 +13,7 @@ public class Utils {
     private static final List<String> excludedProducts =
             Collections.unmodifiableList(Arrays.asList("book", "chocolate","pills"));
 
+    private Utils() {}
 
     public static ProductsEnumType checkTypeOfProduct(String productName, boolean isImported){
             String[] filterExcludedProducts = excludedProducts.stream()

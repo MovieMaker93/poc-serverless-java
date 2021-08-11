@@ -22,6 +22,7 @@ public class CalculateTaxesHandler implements RequestHandler<Map<String,Object> 
     private static final String BODY = "body";
     private static final int HTTP_OK = 200;
     private static final int HTTP_INTERNAL_ERROR = 500;
+    private static final String STRING_EMPTY = "";
 
 
     @Override
@@ -38,25 +39,25 @@ public class CalculateTaxesHandler implements RequestHandler<Map<String,Object> 
                 if (body.isArray()) {
                     //Get each product from array of products
                     for (final JsonNode objNode : body) {
-                        String productName = objNode.get("productName").asText();
+                        String productName = objNode.get("productName") != null ? objNode.get("productName").asText() : STRING_EMPTY;
+                        int quantity = objNode.get("quantity") != null ? objNode.get("quantity").asInt() : 0;
+                        String productPrice = objNode.get("price") != null ? objNode.get("price").asText() : "0.0";
                         //check if it is imported
                         boolean isImported = productName.contains("imported");
                         ProductsEnumType productType = Utils.checkTypeOfProduct(productName,isImported);
-                        Product product = new Product(objNode.get("quantity").asInt(),
-                                objNode.get("price").asText(), productName, productType);
+                        Product product = new Product(quantity, productPrice, productName, productType);
                         LOG.info("Current product name {}", product.getProductName());
-                        int quantity = product.getQuantity();
-                        double productPrice = Double.parseDouble(product.getPrice());
                         // Standard total price product is price product multiplied for the quantity
-                        double priceProductWithQuantity = productPrice * quantity;
+                        double priceProductWithQuantity = Double.parseDouble(productPrice) * quantity;
                         currentTax = BigDecimal.valueOf(0);
-                        BigDecimal priceProductWithoutTax = BigDecimal.valueOf(productPrice);
+                        BigDecimal priceProductWithoutTax = new BigDecimal(productPrice);
                         totalPrice = totalPrice.add(BigDecimal.valueOf(priceProductWithQuantity));
                         // Exclude goods product from taxes 10%
                         if (productType.isTaxed()) {
                             BigDecimal tax = Utils.calculateStandardTax(priceProductWithoutTax);
                             // Round up to the nearest 0.05
                             tax = Utils.round(tax,BigDecimal.valueOf(0.05), RoundingMode.UP);
+                            // current tax is taxed calculated on single product multiplied for the quantity
                             currentTax = currentTax.add(tax.multiply(new BigDecimal(quantity)));
                         }
                         // If imported product, apply 5% duty taxes in the total price product
@@ -64,6 +65,7 @@ public class CalculateTaxesHandler implements RequestHandler<Map<String,Object> 
                             BigDecimal importedTax = Utils.calculateImportedTax(priceProductWithoutTax);
                             // Round up to the nearest 0.05
                             importedTax = Utils.round(importedTax,BigDecimal.valueOf(0.05), RoundingMode.UP);
+                            // current tax is taxed calculated on single product multiplied for the quantity
                             currentTax = currentTax.add(importedTax.multiply(new BigDecimal(quantity)));
                         }
                         product.setPrice(Utils.roundTwoDecimal(priceProductWithQuantity + currentTax.doubleValue()));
