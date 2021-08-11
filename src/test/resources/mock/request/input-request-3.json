@@ -1,30 +1,22 @@
 [
   {
     "quantity": 1,
-    "price": 27.99,
-    "productName": "imported bottle of perfume",
-    "imported": true,
-    "type": "General"
+    "price": "27.99",
+    "productName": "imported bottle of perfume"
   },
   {
     "quantity": 1,
-    "price": 18.99,
-    "productName": "bottle of perfume",
-    "imported": false,
-    "type": "General"
+    "price": "18.99",
+    "productName": "bottle of perfume"
   },
   {
     "quantity": 1,
-    "price": 9.75,
-    "productName": "packet of headache pills",
-    "imported": false,
-    "type": "Medical"
+    "price": "9.75",
+    "productName": "packet of headache pills"
   },
   {
     "quantity": 3,
-    "price": 11.25,
-    "productName": "imported box of chocolates",
-    "imported": true,
-    "type": "Food"
+    "price": "11.25",
+    "productName": "imported box of chocolates"
   }
 ]

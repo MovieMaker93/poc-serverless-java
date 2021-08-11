@@ -1,40 +1,38 @@
 package com.claranet.pojo;
 
+import com.claranet.utils.ProductsEnumType;
+
 import java.io.Serializable;
+
+
 
 public class Product implements Serializable, Cloneable{
 
     private final int quantity;
-    private final double price;
+    private String price;
     private final String productName;
-    private final boolean imported;
-    private final String type;
+    private final ProductsEnumType productsEnumType;
 
-    public Product(int quantity, double price, String productName, boolean imported, String type) {
+    public Product(int quantity, String price, String productName, ProductsEnumType productsEnumType) {
         this.quantity = quantity;
         this.price = price;
         this.productName = productName;
-        this.imported = imported;
-        this.type = type;
+        this.productsEnumType = productsEnumType;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getProductName() {
         return productName;
-    }
-
-    public boolean isImported() {
-        return imported;
-    }
-
-    public String getType(){
-        return type;
     }
 }

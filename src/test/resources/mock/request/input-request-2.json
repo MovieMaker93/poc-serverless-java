@@ -2,15 +2,11 @@
   {
     "quantity": 1,
     "price": 10.00,
-    "productName": "imported box of chocolates",
-    "imported": true,
-    "type": "Food"
+    "productName": "imported box of chocolates"
   },
   {
     "quantity": 1,
     "price": 47.50,
-    "productName": "imported bottle of perfume",
-    "imported": true,
-    "type": "General"
+    "productName": "imported bottle of perfume"
   }
 ]

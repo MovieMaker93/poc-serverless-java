@@ -52,8 +52,8 @@ package:
   artifact: 'target/${self:service}-${self:provider.stage}.jar'
 
 functions:
-  getTaxes:
-    handler: com.claranet.controller.GetTaxesHandler
+  calculateTaxes:
+    handler: com.claranet.controller.CalculateTaxesHandler
     events:
       - http:
           path: /taxes

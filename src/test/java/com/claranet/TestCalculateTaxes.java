@@ -3,7 +3,7 @@ package com.claranet;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.claranet.controller.ApiGatewayResponse;
-import com.claranet.controller.GetTaxesHandler;
+import com.claranet.controller.CalculateTaxesHandler;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 
-public class TestGetTaxes {
+public class TestCalculateTaxes {
 
     private static final String BODY = "body";
     private static final int HTTP_OK = 200;
@@ -23,21 +23,21 @@ public class TestGetTaxes {
     void testRequest1() throws IOException {
         ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream("/mock/request/input-request-1.json"));
         assertEquals(HTTP_OK, result.getStatusCode());
-        assertEquals(convertInputStreamToString(getResourceAsStream("/mock.response/response-1.json"),StandardCharsets.UTF_8.name()),result.getBody());
+        assertEquals(convertInputStreamToString(getResourceAsStream("/mock/response/response-1.json"),StandardCharsets.UTF_8.name()),result.getBody());
     }
 
     @Test
     void testRequest2() throws IOException {
         ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream("/mock/request/input-request-2.json"));
         assertEquals(HTTP_OK, result.getStatusCode());
-        assertEquals(convertInputStreamToString(getResourceAsStream("/mock.response/response-1.json"),StandardCharsets.UTF_8.name()),result.getBody());
+        assertEquals(convertInputStreamToString(getResourceAsStream("/mock/response/response-2.json"),StandardCharsets.UTF_8.name()),result.getBody());
     }
 
     @Test
     void testRequest3() throws IOException {
         ApiGatewayResponse result = getApiGatewayResponse(getResourceAsStream("/mock/request/input-request-3.json"));
         assertEquals(HTTP_OK, result.getStatusCode());
-        assertEquals(convertInputStreamToString(getResourceAsStream("/mock.response/response-1.json"),StandardCharsets.UTF_8.name()),result.getBody());
+        assertEquals(convertInputStreamToString(getResourceAsStream("/mock/response/response-3.json"),StandardCharsets.UTF_8.name()),result.getBody());
     }
 
     private ApiGatewayResponse getApiGatewayResponse(InputStream request) throws IOException {
@@ -45,7 +45,7 @@ public class TestGetTaxes {
         String inputRequest = convertInputStreamToString(request, StandardCharsets.UTF_8.name());
         event.put(BODY, inputRequest);
         Context context = new TestContext();
-        GetTaxesHandler handler = new GetTaxesHandler();
+        CalculateTaxesHandler handler = new CalculateTaxesHandler();
         return handler.handleRequest(event, context);
     }
 

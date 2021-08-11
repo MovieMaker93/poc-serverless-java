@@ -4,25 +4,25 @@ import java.util.List;
 
 public class Response {
 
-    private final List<ProductWithTaxes> productWithTaxesList;
-    private final double totalPrice;
-    private final double taxSales;
+    private final List<Product> productWithTaxes;
+    private final String totalPrice;
+    private final String taxSales;
 
-    public Response(List<ProductWithTaxes> productWithTaxesList, double totalPrice, double taxSales) {
-        this.productWithTaxesList = productWithTaxesList;
+    public Response(List<Product> productWithTaxes, String totalPrice, String taxSales) {
+        this.productWithTaxes = productWithTaxes;
         this.totalPrice = totalPrice;
         this.taxSales = taxSales;
     }
 
-    public List<ProductWithTaxes> getProductWithTaxesList() {
-        return productWithTaxesList;
+    public List<Product> getProductWithTaxes() {
+        return productWithTaxes;
     }
 
-    public double getTotalPrice() {
+    public String getTotalPrice() {
         return totalPrice;
     }
 
-    public double getTaxSales() {
+    public String getTaxSales() {
         return taxSales;
     }
 }

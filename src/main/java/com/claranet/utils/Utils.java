@@ -2,32 +2,46 @@ package com.claranet.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Utils {
 
-    public static boolean checkProductType(String productType) {
+    private static final List<String> excludedProducts =
+            Collections.unmodifiableList(Arrays.asList("book", "chocolate","pills"));
 
-        for (ProductsEnum type : ProductsEnum.values()){
-            if (type.name().equals(productType)){
-                return true;
+
+    public static ProductsEnumType checkTypeOfProduct(String productName, boolean isImported){
+            String[] filterExcludedProducts = excludedProducts.stream()
+                    .filter(productName::contains)
+                    .toArray(String[]::new);
+            if(filterExcludedProducts.length > 0){
+               return  isImported ? ProductsEnumType.IMPORTED_EXCLUDED_PRODUCT : ProductsEnumType.EXCLUDED_PRODUCT;
             }
-        }
-        return false;
+            return isImported ? ProductsEnumType.IMPORTED_GENERAL : ProductsEnumType.GENERAL;
     }
 
-    public static double calculateImportedTax (double price){
-            return price * 0.05;
+    public static BigDecimal calculateImportedTax (BigDecimal price){
+        BigDecimal taxStandard = new BigDecimal(".05");
+        return taxStandard.multiply(price);
     }
 
-    public static double calculateStandardTax (double price){
-        return price * 0.10;
+    public static BigDecimal calculateStandardTax (BigDecimal price){
+        BigDecimal taxStandard = new BigDecimal(".10");
+        return taxStandard.multiply(price);
     }
 
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
+    public static String roundTwoDecimal(double value) {
+        NumberFormat twoDForm = new DecimalFormat("#0.00");
+        return twoDForm.format(value);
+    }
 
-        BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+    public static BigDecimal round(BigDecimal value, BigDecimal rounding, RoundingMode roundingMode){
+            BigDecimal divided = value.divide(rounding, 0, roundingMode);
+            BigDecimal result = divided.multiply(rounding);
+            return result.setScale(2, RoundingMode.UNNECESSARY);
     }
 }

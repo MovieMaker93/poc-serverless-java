@@ -1,23 +1,17 @@
 [
   {
     "quantity": 2,
-    "price": 12.49,
-    "productName": "book",
-    "imported": false,
-    "type": "Book"
+    "price": "12.49",
+    "productName": "book"
   },
   {
     "quantity": 1,
-    "price": 14.99,
-    "productName": "music CD",
-    "imported": false,
-    "type": "Cd"
+    "price": "14.99",
+    "productName": "music CD"
   },
   {
     "quantity": 1,
-    "price": 0.85,
-    "productName": "chocolate bar",
-    "imported": false,
-    "type": "Food"
+    "price": "0.85",
+    "productName": "chocolate bar"
   }
 ]
