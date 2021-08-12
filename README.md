@@ -163,7 +163,10 @@ As mentioned above the request/response is in JSON format.
 For testing the application you can use directly the public API endpoint mentioned above:  
 **Examples 1**  
 For the **input 1** of the problem you can call the service via curl:  
-``` curl -X post ```
+``` curl -X POST https://6s2osc5ck6.execute-api.eu-south-1.amazonaws.com/dev/taxes -d '[{"quantity": 2 , "price": "12.49", "productName":"book"},{"quantity":1, "price": "14.99", "productName": "music CD"}, {"quantity":1, "price":"0.85","productName": "chocolate bar"}]' ```
+
+And the **Response** will be:  
+```json {"productWithTaxes":[{"quantity":2,"price":"24.98","productName":"book"},{"quantity":1,"price":"16.49","productName":"music CD"},{"quantity":1,"price":"0.85","productName":"chocolate bar"}],"totalPrice":"42.32","taxSales":"1.50"} ```
 
 ### Local testing
 You can also local testing the application if you clone this project. Keep in mind there some prerequisites to meet: 
@@ -174,4 +177,4 @@ You can also local testing the application if you clone this project. Keep in mi
 Secondly you have to build the application with:  
 ``` mvn clean package ```  
 and lastly:  
-``` sls invoke -f calculateTaxes -d 'adasda' ```
+``` serverless invoke local -f calculateTaxes -d '[{"quantity": 2 , "price": "12.49", "productName":"book"},{"quantity":1, "price": "14.99", "productName": "music CD"}, {"quantity":1, "price":"0.85","productName": "chocolate bar"}]' ```

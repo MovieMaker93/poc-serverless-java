@@ -82,7 +82,7 @@ public class CalculateTaxesHandler implements RequestHandler<Map<String,Object> 
                     Collections.singletonMap("X-Powered-By", "Taxes calculated"));
         }catch (IOException e) {
             LOG.error("Error in retrieving taxes", e);
-            String errorMessage = "Error in retrieving taxes: " + input;
+            String errorMessage = "Error in retrieving taxes: " + input.get(BODY);
             return buildResponse(HTTP_INTERNAL_ERROR,errorMessage,
                     Collections.singletonMap("X-Powered-By", "Taxes calculated"));
         }
