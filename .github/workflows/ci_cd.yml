@@ -42,7 +42,7 @@ jobs:
       # Test the code
       - name: Maven Test Verify
         run: mvn -B clean verify
-        run: mkdir dev && cp target/*.jar dev
+      - run: mkdir dev && cp target/*.jar dev
       - uses: actions/upload-artifact@v2
         with:
           name: ${{env.PACKAGE_NAME}}-${{env.STAGE}}
