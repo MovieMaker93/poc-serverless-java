@@ -160,9 +160,9 @@ As mentioned above the request/response is in JSON format.
 }
 ```
 ## Testing
-For testing the application you can use directly the public API endpoint mentioned above: 
-**Examples 1**
-For the **input 1** of the problem you can call the service via curl:
+For testing the application you can use directly the public API endpoint mentioned above:  
+**Examples 1**  
+For the **input 1** of the problem you can call the service via curl:  
 ``` curl -X post ```
 
 ### Local testing
@@ -171,7 +171,7 @@ You can also local testing the application if you clone this project. Keep in mi
 2. Install servlerless cli
 3. maven and jdk 8 for the java application
 
-Secondly you have to build the application with:
-``` mvn clean package ```
-and lastly:
+Secondly you have to build the application with:  
+``` mvn clean package ```  
+and lastly:  
 ``` sls invoke -f calculateTaxes -d 'adasda' ```
