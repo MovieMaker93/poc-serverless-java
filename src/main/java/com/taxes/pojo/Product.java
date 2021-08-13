@@ -1,6 +1,6 @@
-package com.claranet.pojo;
+package com.taxes.pojo;
 
-import com.claranet.utils.ProductsEnumType;
+import com.taxes.utils.ProductsEnumType;
 
 import java.io.Serializable;
 

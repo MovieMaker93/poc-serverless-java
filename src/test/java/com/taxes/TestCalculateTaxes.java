@@ -1,9 +1,9 @@
-package com.claranet;
+package com.taxes;
 
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.claranet.controller.ApiGatewayResponse;
-import com.claranet.controller.CalculateTaxesHandler;
+import com.taxes.controller.ApiGatewayResponse;
+import com.taxes.controller.CalculateTaxesHandler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

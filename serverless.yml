@@ -23,7 +23,7 @@ package:
 # Calculate taxes post function with the related path
 functions:
   calculateTaxes:
-    handler: com.claranet.controller.CalculateTaxesHandler
+    handler: com.taxes.controller.CalculateTaxesHandler
     events:
       - http:
           path: /taxes

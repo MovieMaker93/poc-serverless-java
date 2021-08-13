@@ -1,11 +1,11 @@
-package com.claranet.controller;
+package com.taxes.controller;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.claranet.pojo.Product;
-import com.claranet.pojo.Response;
-import com.claranet.utils.ProductsEnumType;
-import com.claranet.utils.Utils;
+import com.taxes.pojo.Product;
+import com.taxes.pojo.Response;
+import com.taxes.utils.ProductsEnumType;
+import com.taxes.utils.Utils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;

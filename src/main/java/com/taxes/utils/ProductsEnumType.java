@@ -1,4 +1,4 @@
-package com.claranet.utils;
+package com.taxes.utils;
 
 public enum ProductsEnumType {
     EXCLUDED_PRODUCT(false,false),

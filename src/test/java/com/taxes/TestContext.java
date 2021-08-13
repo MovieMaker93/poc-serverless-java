@@ -1,4 +1,4 @@
-package com.claranet;
+package com.taxes;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.CognitoIdentity;

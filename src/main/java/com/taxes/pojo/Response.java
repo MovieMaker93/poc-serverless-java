@@ -1,4 +1,4 @@
-package com.claranet.pojo;
+package com.taxes.pojo;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.claranet;
+package com.taxes;
 
-import com.claranet.controller.CalculateTaxesHandler;
+import com.taxes.controller.CalculateTaxesHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
