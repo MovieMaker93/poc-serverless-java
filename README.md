@@ -104,7 +104,7 @@ functions:
           method: post
 ```
 ### CI/CD pipeline via Github action
-The CI/CD pipeline is handled by the Github action divided in two jobs:
+The CI/CD pipeline is handled by the Github action (defined into **ci_cd.yml**) divided in two jobs:
 1. **build_and_test** job: Compile and testing the application
 2. **deploy** job: Deploy the application with Serverless framework to AWS.
 
